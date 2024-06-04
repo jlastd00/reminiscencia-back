@@ -23,7 +23,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    pacientes: []
+    pacientes: [{
+        ref: 'Paciente',
+        type: Schema.Types.ObjectId
+    }],
+}, {
+    versionKey: false
 });
 
 userSchema.pre("save", async function (next) {
