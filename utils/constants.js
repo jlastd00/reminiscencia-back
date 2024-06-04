@@ -19,6 +19,7 @@ export const ERROR_TIPO_RECURSO_OBLIGATORIO = "El tipo de recurso es obligatorio
 export const ERROR_RECURSO_NOT_FOUND = "El recurso no existe";
 export const ERROR_RECURSO_INACCESIBLE = "No puedes acceder a este recurso";
 export const ERROR_RECURSO_ELIMINADO_OK = "Recurso eliminado con éxito";
+export const ERROR_PARAM_ID_INCORRECTO = "Formato de id incorrecto";
 
 /* Mensajes de respuesta */
 export const RESPONSE_USUARIO_GUARDADO_OK = "El usuario se ha guardado correctamente";
