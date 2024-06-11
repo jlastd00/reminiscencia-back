@@ -30,11 +30,3 @@ export const validateBodyLogin = [
     validationResults
 ];
 
-export const validateBodyRecurso = [
-    body('nombre', Constants.ERROR_NOMBRE_RECURSO_OBLIGATORIO).trim().custom(value => value.length > 0),
-    body('formato', Constants.ERROR_FORMATO_RECURSO_OBLIGATORIO).trim().custom(value => value.length > 0),
-    body('tipo', Constants.ERROR_TIPO_RECURSO_OBLIGATORIO).trim().custom(value => value.length > 0),
-
-    validationResults
-];
-

@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import fileUpload from 'express-fileupload';
 import { requireToken } from '../middlewares/requireToken.js';
-import { validateBodyRecurso } from '../middlewares/validationManager.js';
 import { 
     getRecurso, 
     getRecursos, 
@@ -15,7 +15,11 @@ router.get('/', requireToken, getRecursos);
 
 router.get('/:id', requireToken, getRecurso);
 
-router.post('/', [requireToken, validateBodyRecurso], saveRecurso);
+router.post('/', requireToken, fileUpload({
+    useTempFiles: true,
+    tempFileDir: './uploads'
+}), 
+saveRecurso);
 
 router.put('/:id', requireToken, updateRecurso);
 
