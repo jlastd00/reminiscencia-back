@@ -37,11 +37,11 @@ export const login = async (req, res) => {
     try {
         const usuario = await Usuario.findOne({ email });
         if (!usuario) {
-            return res.status(401).json({ error: Constants.ERROR_USUARIO_NO_EXISTE });
+            return res.status(404).json({ error: Constants.ERROR_USUARIO_NO_EXISTE });
         }
 
         const matchPassword = await usuario.comparePassword(password);
-        if (!matchPassword) return res.status(401).json({ error: Constants.ERROR_PASSWORD_INCORRECTO });
+        if (!matchPassword) return res.status(400).json({ error: Constants.ERROR_PASSWORD_INCORRECTO });
         
         const { token, expiresIn } = generateToken(usuario._id);
         generateRefreshToken(usuario._id, res);
