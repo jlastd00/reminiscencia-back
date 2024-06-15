@@ -10,7 +10,7 @@ import terapiaRoutes from './routes/terapia.routes.js';
 
 const app = express();
 
-const whiteList = [process.env.ORIGIN1];
+const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -18,7 +18,8 @@ app.use(cors({
             return callback(null, origin);
         }
         return callback("Error de CORS: " + origin + " NO AUTORIZADO!");
-    }
+    },
+    credentials: true
 }));
 
 app.use(express.json());
