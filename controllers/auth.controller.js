@@ -19,14 +19,14 @@ export const register = async (req, res) => {
 
         //TODO enviar email para confirmar la cuenta
 
-        return res.status(201).json({ msg: Constants.RESPONSE_USUARIO_GUARDADO_OK });
+        return res.status(200).json({ ok: true, msg: Constants.RESPONSE_USUARIO_GUARDADO_OK });
 
     } catch (error) {
         console.log(error);
         if (error.code === 11000) {
-            return res.status(400).json({ error: Constants.ERROR_USUARIO_YA_EXISTE });
+            return res.status(400).json({ errorMsg: Constants.ERROR_USUARIO_YA_EXISTE });
         }
-        return res.status(500).json({ error: Constants.ERROR_SERVER });
+        return res.status(500).json({ errorMsg: Constants.ERROR_SERVER });
     }
 };
 
@@ -37,23 +37,23 @@ export const login = async (req, res) => {
     try {
         const usuario = await Usuario.findOne({ email });
         if (!usuario) {
-            return res.status(404).json({ error: Constants.ERROR_USUARIO_NO_EXISTE });
+            return res.status(404).json({ errorMsg: Constants.ERROR_USUARIO_NO_EXISTE });
         }
 
         const matchPassword = await usuario.comparePassword(password);
-        if (!matchPassword) return res.status(400).json({ error: Constants.ERROR_PASSWORD_INCORRECTO });
+        if (!matchPassword) return res.status(400).json({ errorMsg: Constants.ERROR_PASSWORD_INCORRECTO });
         
         const { token, expiresIn } = generateToken(usuario._id);
-        generateRefreshToken(usuario._id, res);
+        //generateRefreshToken(usuario._id, res);
 
-        return res.status(200).json({ msg: Constants.RESPONSE_LOGIN_OK, token, expiresIn });
+        return res.status(200).json({ ok: true, roleUsuario: usuario.role, token, expiresIn });
 
     } catch (error) {
         console.log(error);
         if (error.code === 11000) {
-            return res.status(400).json({ error: error.message });
+            return res.status(400).json({ errorMsg: error.message });
         }
-        return res.status(500).json({ error: Constants.ERROR_SERVER });
+        return res.status(500).json({ errorMsg: Constants.ERROR_SERVER });
     }
 };
 
@@ -64,7 +64,7 @@ export const refreshToken = (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: Constants.ERROR_SERVER });
+        return res.status(500).json({ errorMsg: Constants.ERROR_SERVER });
     }
 };
 
@@ -76,11 +76,11 @@ export const logout = (req, res) => {
 export const pruebaRutaProtegida = async (req, res) => {
     try {
         const usuario = await Usuario.findById(req.uid).lean();
-        res.json({ msg: "Información protegida", usuario });
+        res.json({ ok: true, msg: "Información protegida", usuario });
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: Constants.ERROR_SERVER });
+        return res.status(500).json({ errorMsg: Constants.ERROR_SERVER });
     }
     
 };

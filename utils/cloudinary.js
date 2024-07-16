@@ -20,9 +20,9 @@ export const uploadFotoPaciente = async (ruta) => {
     });
 };
 
-export const uploadRecurso = async (ruta, tipo) => {
+export const uploadRecurso = async (ruta, formato) => {
     return await cloudinary.uploader.upload(ruta, {
-        folder: folderRecursos[tipo]
+        folder: folderRecursos[formato]
     });
 };
 

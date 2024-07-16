@@ -11,7 +11,7 @@ const pacienteSchema = new Schema({
         nombre: { type: String,  trim: true },
         apellido1: { type: String, trim: true },
         apellido2: { type: String, trim: true },
-        fechaInsercion: { type: String, default: new Date().toString(), },
+        fechaInsercion: { type: String },
         institucionalizado: { type: Boolean },
         institucion: {
             nombre: { type: String, trim: true },
